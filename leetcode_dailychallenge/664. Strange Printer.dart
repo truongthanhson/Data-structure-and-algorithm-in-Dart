@@ -2,6 +2,7 @@ import 'dart:math';
 
 void main(List<String> args) {
   print(Solution().strangePrinter('aaabbb'));
+  print(Solution().strangePrinter('aaabbbccceddaerdd'));
 }
 
 class Solution {

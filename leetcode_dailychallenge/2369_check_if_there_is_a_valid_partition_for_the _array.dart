@@ -1,5 +1,5 @@
 class Solution {
-  bool validPartition(List<int> nums) {
+  bool validPartition_stackoverflow(List<int> nums) {
     var N = nums.length;
 
     List<bool?> dp = List.generate(N, (_) => null);
@@ -22,6 +22,28 @@ class Solution {
     }
 
     return valid(0);
+  }
+
+  bool validPartition(List<int> nums) {
+    var N = nums.length;
+
+    if (N == 0 || N == 1) return false;
+    if (N == 2) return nums[1] == nums[0];
+
+    List<bool> dp = List.generate(N, (_) => false);
+    dp[0] = false;
+    dp[1] = nums[0] == nums[1];
+    dp[2] = (nums[0] == nums[1] && nums[1] == nums[2]) ||
+        (nums[1] - nums[0] == 1 && nums[2] - nums[1] == 1);
+
+    for (int i = 3; i < N; i++) {
+      dp[i] = (dp[i - 2] && nums[i - 1] == nums[i]) ||
+          (dp[i - 3] &&
+              ((nums[i - 1] - nums[i - 2] == 1 && nums[i] - nums[i - 1] == 1) ||
+                  (nums[i - 2] == nums[i - 1] && nums[i - 1] == nums[i])));
+    }
+
+    return dp[N - 1];
   }
 }
 

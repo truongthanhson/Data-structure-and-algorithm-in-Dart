@@ -20,6 +20,26 @@ class Solution {
 
     return dp.reduce(max);
   }
+
+  int findLongestChain_greedy(List<List<int>> pairs) {
+    pairs.sort(
+      (a, b) {
+        if (a[1] == b[1]) return a[0].compareTo(b[0]);
+        return a[1].compareTo(b[1]);
+      },
+    );
+    int n = pairs.length;
+    int maxStreak = 1;
+    List<int> prev = pairs[0];
+    for (int i = 1; i < n; i++) {
+      if (pairs[i][0] > prev[1]) {
+        maxStreak += 1;
+        prev = pairs[i];
+      }
+    }
+
+    return maxStreak;
+  }
 }
 
 void main(List<String> args) {
